@@ -6,11 +6,39 @@ from marshmallow import Schema, fields
 from validation_mixin.validation import (
     validate_with, validate_field, validate, BaseValidation
 )
+from validation_mixin.chains import call_chain
 
 
 class HttpErrorException(Exception):
     pass
 
+
+class CallChainTestObject:
+    """
+        Class should check @call_chain decorator
+    """
+
+    def __init__(self):
+        self.pre_hook = False
+        self.data = dict()
+        self.post_hook = False
+
+    @call_chain('pre_hook_fn', 'self', 'post_hook_fn')
+    def something_interesting(self):
+        self.data.update({"ok": "ok"})
+
+    def pre_hook_fn(self):
+        """
+            Method should set pre hook
+        """
+        print(self)
+        self.pre_hook = True
+
+    def post_hook_fn(self):
+        """
+            Method should set post hook
+        """
+        self.post_hook = True
 
 
 class ValidationSchema(Schema):
@@ -180,3 +208,15 @@ class TestValidationMixinTestsCase:
         obj = MockedObjectsVall(**user_params)
         with pytest.raises(MockedObjectsVall.exception):
             obj.return_id('Andy')
+
+    def test_should_test_call_chain_decorator(self):
+        """ Check chain decorator """
+        inst = CallChainTestObject()
+        inst.something_interesting()
+        assert inst.pre_hook
+        assert inst.data['ok'] == 'ok'
+        assert inst.post_hook
+
+    def test_should_check_if_call_instance_not_found_in_object(self):
+        """ Check if called method not found """
+        pass
