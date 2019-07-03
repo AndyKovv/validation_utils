@@ -89,7 +89,6 @@ class ExecuteFuncHandler:
             return
 
         if self.__is_private:
-            print(self.__function_pointer())
             self.add_execution_result(
                 self.__function_pointer(*args, **kwargs)
             )

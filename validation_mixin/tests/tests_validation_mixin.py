@@ -31,7 +31,6 @@ class CallChainTestObject:
         """
             Method should set pre hook
         """
-        print(self)
         self.pre_hook = True
 
     def post_hook_fn(self):
