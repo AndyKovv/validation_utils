@@ -2,7 +2,7 @@
 
 from collections import deque
 
-from validation_mixin.core import ExecuteFuncHandler, MethodFinderMixin
+from validation_utils.core import ExecuteFuncHandler, MethodFinderMixin
 
 
 class call_chain(MethodFinderMixin):

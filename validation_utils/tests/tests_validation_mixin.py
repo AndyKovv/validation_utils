@@ -3,10 +3,10 @@
 import pytest
 from marshmallow import Schema, fields
 
-from validation_mixin.validation import (
+from validation_utils.validation import (
     validate_with, validate_field, validate, BaseValidation
 )
-from validation_mixin.chains import call_chain
+from validation_utils.chains import call_chain
 
 
 class HttpErrorException(Exception):
