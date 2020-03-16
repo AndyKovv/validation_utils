@@ -4,3 +4,7 @@ __pycache__
 .DS_Store
 .python-version
 
+.eggs/
+build/
+dist/
+validation_utils.egg-info/
